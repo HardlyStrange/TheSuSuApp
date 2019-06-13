@@ -1,0 +1,20 @@
+{
+    "appName": "thesusuapp",
+    "roleName": "pinpointLambdaRoleb2030d1f",
+    "cloudWatchPolicyName": "cloudWatchPolicyb2030d1f",
+    "pinpointPolicyName": "pinpointPolicyb2030d1f",
+    "authPolicyName": "pinpoint_amplify_b2030d1f",
+    "unauthPolicyName": "pinpoint_amplify_b2030d1f",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

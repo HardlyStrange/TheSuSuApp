@@ -1,0 +1,6 @@
+target 'TheSuSuApp' do
+  use_frameworks!
+  pod 'UMReactNativeAdapter', path: '../node_modules/@unimodules/react-native-adapter/ios', inhibit_warnings: true
+end
+
+

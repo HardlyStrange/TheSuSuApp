@@ -1,0 +1,29 @@
+{
+	"api": {
+		"thesusuapp": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY"
+			}
+		}
+	},
+	"auth": {
+		"cognitoa626a7d9": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"analytics": {
+		"thesusuapp": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"storage": {
+		"susuThings": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
