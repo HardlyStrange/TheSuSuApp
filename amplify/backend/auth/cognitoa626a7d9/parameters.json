@@ -1,6 +1,6 @@
 {
     "identityPoolName": "cognitoa626a7d9_identitypool_c04b58ed",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "lambdaLogPolicy": "thesus_7e739393_lambda_log_policy",
     "openIdLambdaRoleName": "thesus_7e739393_openid_lambda_role",
     "openIdRolePolicy": "thesus_7e739393_openid_pass_role_policy",

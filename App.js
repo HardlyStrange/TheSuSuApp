@@ -63,7 +63,10 @@ class AcceptPage extends Component<Props> {
     try {
       const knowU = await API.graphql(graphqlOperation(queries.getSusuer, {id: this.uuid}));
       console.log(knowU);
-      if (knowU.data.getSusuer.id){ //learn how to access graphql
+
+      //Use this conditional to send them to create susu profile or to dashboard
+      //if they already have one
+      if (knowU.data.getSusuer.id){
         console.log('User Found');
         console.log(knowU.data.getSusuer.id);
         this.props.navigation.navigate('Login');

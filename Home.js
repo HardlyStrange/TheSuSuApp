@@ -3,6 +3,7 @@ import { Authenticator, withAuthenticator, SignIn } from 'aws-amplify-react-nati
 import {Text, Linking, Button, TextInput, ScrollView, View, Image, TouchableOpacity} from 'react-native';
 import { Font, ImagePicker, Permissions, Constants } from 'expo';
 import Amplify, { Auth, Analytics, Storage, API, graphqlOperation } from 'aws-amplify';
+import * as mime from 'react-native-mime-types';
 import * as queries from './src/graphql/queries.js';
 import * as mutations from './src/graphql/mutations.js';
 import * as subscriptions from './src/graphql/subscriptions.js';
@@ -63,7 +64,8 @@ class Home extends Component {
 
   handleChoosePhoto = async () => {
     await this.askPermissionsAsync();
-    let result = await ImagePicker.launchCameraAsync({
+    let result = await ImagePicker.launchImageLibraryAsync({
+                                 //launchCameraAsync
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
@@ -73,9 +75,24 @@ class Home extends Component {
     console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ photo: result.uri });
-    }
+      //this.setState({ photo: result.uri });
+      const fileType = mime.lookup(result.uri);
+      //Storage.configure({ level: 'private', contentType: fileType,  });
+      fetch(result.uri).then(response => {
+        response.blob()
+          .then(blob => {
+
+            Storage.put(result.uri, blob, {
+              level: 'private',
+              contentType: fileType
+            }).then(succ => console.log(succ)).catch(err => console.log(err));
+      // store photo in s3 bucket
+      //set new info to graph mutations.
+      //send user to next screen
+          });
+      });
   };
+}
 
   askPermissionsAsync = async () => {
     await Permissions.askAsync(Permissions.CAMERA);
