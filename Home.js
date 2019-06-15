@@ -11,6 +11,22 @@ var ss = require('./styles.js');
 import awsmobile from './aws-exports.js';
 Amplify.configure(awsmobile);
 
+
+class Defaultphotobutton extends Component {
+  render() {
+    return(
+      <View>
+        <Text style={ss.lcupLabel}>
+              Click Here to Upload Valid Photo ID
+        </Text>
+           <Image style={ss.lcupbutton}
+             source={require('./assets/uploadID.png')}
+           />
+      </View>
+       )
+  }
+};
+
 class Home extends Component {
   static navigationOptions = {
     title: 'Initiate Profile',
@@ -18,16 +34,17 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.ready = false;
-
+    this.photo = null;
     this.uuid = Constants.deviceId;
     this.state = {
         frst: '',
         lst: '',
         disp: '',
-        photo: '',
+        photo: null,
     };
     this.readyToGo = this.readyToGo.bind(this);
   };
+
   componentWillMount(){
     Auth.currentAuthenticatedUser({
       bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
@@ -75,18 +92,16 @@ class Home extends Component {
     console.log(result);
 
     if (!result.cancelled) {
-      //this.setState({ photo: result.uri });
+      this.setState({photo: result.uri});
       const fileType = mime.lookup(result.uri);
-      //Storage.configure({ level: 'private', contentType: fileType,  });
+      console.log(fileType);
+      const access = { level: "private", contentType: fileType, };
       fetch(result.uri).then(response => {
         response.blob()
           .then(blob => {
-
-            Storage.put(result.uri, blob, {
-              level: 'private',
-              contentType: fileType
-            }).then(succ => console.log(succ)).catch(err => console.log(err));
-      // store photo in s3 bucket
+            Storage.put(`${this.state.frst}_${this.state.lst}_legalID`, blob, access)
+              .then(succ => console.log(succ))
+              .catch(err => console.log(err));
       //set new info to graph mutations.
       //send user to next screen
           });
@@ -106,6 +121,17 @@ class Home extends Component {
       this.ready = true;
     } else {
       this.ready = false;
+    }
+    let button;
+    if (this.state.photo){
+      button = <View>
+                <Image style={ss.lcupproc}
+                   source={{uri: this.state.photo}}
+                 />
+               <Button style={ss.lcupprocbut} onPress={this.readyToGo} title="Proceed"/>
+               </View>;
+    } else {
+      button = <Defaultphotobutton />;
     }
     return(
       <View style={{flex: 2, backgroundColor: 'black'}}>
@@ -137,11 +163,7 @@ class Home extends Component {
             this.ready &&
             <View style={ss.lcupCont}>
               <TouchableOpacity onPress={this.handleChoosePhoto}>
-                <Text style={ss.lcupLabel}>Click Here to Upload Valid Photo ID</Text>
-                <Image
-                  style={ss.lcupbutton}
-                  source={require('./assets/uploadID.png')}
-                />
+                {button}
               </TouchableOpacity>
             </View>
           }

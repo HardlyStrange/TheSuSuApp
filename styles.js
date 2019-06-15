@@ -115,4 +115,23 @@ module.exports = StyleSheet.create({
     padding: 100,
     alignSelf: 'center',
   },
+  lcupproc: {
+    zIndex: 1,
+    opacity: .4,
+    borderColor: 'grey',
+    borderWidth: 1,
+    marginTop: -30,
+    width: '300%',
+    height: '100%',
+    padding: 10,
+    alignSelf: 'center',
+  },
+  lcupprocbut: {
+    zIndex: 2,
+    opacity: 1,
+    color: 'green',
+    position: 'absolute',
+    backgroundColor: 'black',
+    marginTop: -150,
+  },
 });

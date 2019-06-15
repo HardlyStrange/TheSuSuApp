@@ -148,7 +148,7 @@ const MainNavigator = createStackNavigator(
   {
     Accept: AcceptPage,
     Login: Home
-
+    
   },
 
   {headerMode: 'none', mode: 'modal'},
