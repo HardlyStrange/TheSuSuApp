@@ -118,18 +118,21 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
           
+  useDefault:
+    Type: String
+            
   authSelections:
     Type: String
             
   resourceName:
     Type: String
-                                                    
-  useDefault:
-    Type: String
               
+  thirdPartyAuth:
+    Type: String
+            
   hostedUI:
     Type: String
-        
+                                                
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -180,6 +183,11 @@ Resources:
           Required: true
           Mutable: true
         
+        -
+          Name: phone_number
+          Required: true
+          Mutable: true
+        
       
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
@@ -206,7 +214,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: cognit5a8b3dac_app_clientWeb
+      ClientName: thesus80c3c446_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -353,7 +361,7 @@ Resources:
             - Effect: Allow
               Action:
                 - 'iam:PassRole'
-              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/cognit5a8b3dac_totp_lambda_role', !Join ['',['arn:aws:iam:::role/cognit5a8b3dac_totp_lambda_role', '-', !Ref env]]]
+              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/thesus80c3c446_totp_lambda_role', !Join ['',['arn:aws:iam:::role/thesus80c3c446_totp_lambda_role', '-', !Ref env]]]
   MFALambda:
   # Lambda which sets MFA config values
   # Depends on MFALambdaRole for role ARN
@@ -464,7 +472,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'cognitoa626a7d9_identitypool_c04b58ed', !Join ['',['cognitoa626a7d9_identitypool_c04b58ed', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'theSuSuAppUserIdentityPool', !Join ['',['theSuSuAppUserIdentityPool', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

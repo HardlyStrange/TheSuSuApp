@@ -4,48 +4,36 @@
 export const createSusuer = `mutation CreateSusuer($input: CreateSusuerInput!) {
   createSusuer(input: $input) {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;
 export const updateSusuer = `mutation UpdateSusuer($input: UpdateSusuerInput!) {
   updateSusuer(input: $input) {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;
 export const deleteSusuer = `mutation DeleteSusuer($input: DeleteSusuerInput!) {
   deleteSusuer(input: $input) {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;

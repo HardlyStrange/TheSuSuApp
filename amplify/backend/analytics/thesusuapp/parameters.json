@@ -1,10 +1,10 @@
 {
     "appName": "thesusuapp",
-    "roleName": "pinpointLambdaRoleb2030d1f",
-    "cloudWatchPolicyName": "cloudWatchPolicyb2030d1f",
-    "pinpointPolicyName": "pinpointPolicyb2030d1f",
-    "authPolicyName": "pinpoint_amplify_b2030d1f",
-    "unauthPolicyName": "pinpoint_amplify_b2030d1f",
+    "roleName": "pinpointLambdaRole7fdcd690",
+    "cloudWatchPolicyName": "cloudWatchPolicy7fdcd690",
+    "pinpointPolicyName": "pinpointPolicy7fdcd690",
+    "authPolicyName": "pinpoint_amplify_7fdcd690",
+    "unauthPolicyName": "pinpoint_amplify_7fdcd690",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },

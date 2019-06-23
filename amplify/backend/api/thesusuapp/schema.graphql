@@ -1,13 +1,9 @@
-type susuer @model {
-	id: ID!
-	agree: Boolean
-	joined: Int!
-	first: String
-	last: String
-	legalid: String
-	confirmed: Boolean
-	nickname: String
-	signedin: Boolean
-	profileid: String
-	profilepic: String
+type Susuer @model {
+  id: ID!
+  joined: Int!
+  username: String
+  first: String
+  last: String
+  legalid: String
+  approved: Boolean
 }

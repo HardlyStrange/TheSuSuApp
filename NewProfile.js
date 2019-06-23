@@ -27,20 +27,20 @@ class Defaultphotobutton extends Component {
   }
 };
 
-class Home extends Component {
+class NewGuy extends Component {
   static navigationOptions = {
     title: 'Initiate Profile',
   };
   constructor(props) {
     super(props);
     this.ready = false;
-    this.photo = null;
     this.uuid = Constants.deviceId;
     this.state = {
         frst: '',
         lst: '',
         disp: '',
         photo: null,
+        legalid: null,
     };
     this.readyToGo = this.readyToGo.bind(this);
   };
@@ -66,14 +66,17 @@ class Home extends Component {
       id: this.uuid,
       first: this.state.frst,
       last: this.state.lst,
-      nickname: this.state.disp,
+      username: this.state.disp,
+      legalid: this.state.legalid,
     };
     try {
       const newUser = await API.graphql(graphqlOperation(mutations.updateSusuer, {input: userDetails}));
+      console.log('We upated this users details, here is the response:');
       console.log(newUser);
       //nav to next page
       //this.props.navigation.navigate('Login');
     } catch (err) {
+      console.log("We Tried to upate the susuer object and got this error:");
       console.log(err);
     }
     //////////////////////
@@ -96,11 +99,16 @@ class Home extends Component {
       const fileType = mime.lookup(result.uri);
       console.log(fileType);
       const access = { level: "private", contentType: fileType, };
+        console.log("the results of the storage:")
       fetch(result.uri).then(response => {
         response.blob()
           .then(blob => {
             Storage.put(`${this.state.frst}_${this.state.lst}_legalID`, blob, access)
-              .then(succ => console.log(succ))
+              .then(
+                response => console.log(response.key)
+              ).then(
+                 this.setState({legalid: `${this.state.frst}_${this.state.lst}_legalID`})
+              )
               .catch(err => console.log(err));
       //set new info to graph mutations.
       //send user to next screen
@@ -173,5 +181,5 @@ class Home extends Component {
 };
 
 //This line turns on aws forced auth to load this screen
-export default withAuthenticator(Home);
-//export default Home;
+export default withAuthenticator(NewGuy);
+//export default NewGuy;

@@ -9,7 +9,8 @@ import * as queries from './src/graphql/queries.js';
 import * as mutations from './src/graphql/mutations.js';
 import * as subscriptions from './src/graphql/subscriptions.js';
 var ss = require('./styles.js');
-import Home from './Home.js';
+import NewGuy from './NewProfile.js';
+import BuildSuSu from './NewSuSu.js';
 //
 Amplify.configure(awsmobile);
 
@@ -42,19 +43,17 @@ class AcceptPage extends Component<Props> {
   };
 
   handleAnalyticsClick() {
-    Analytics.record('New SuSu App User').then( (evt) => {
-      const url = 'https://'+awsmobile.aws_project_region+'.console.aws.amazon.com/pinpoint/home/?region='+awsmobile.aws_project_region+'#/apps/'+awsmobile.aws_mobile_analytics_app_id+'/analytics/events';
+    Analytics.record('New SuSu App User Accepted legal Agreement').then( (evt) => {
+      const url = 'https://'+awsmobile.aws_mobile_analytics_app_region+'.console.aws.amazon.com/pinpoint/home/?region='+awsmobile.aws_mobile_analytics_app_region+'#/apps/'+awsmobile.aws_mobile_analytics_app_id+'/analytics/events';
       let result = (
               <View>
                 <Text onPress={() => Linking.openURL(url)}/>
               </View>
         );
-     });
+     }).catch(err => console.log(err));
        console.log("Sent analytics click Accept");
-       //add new user to db?
        this.saveUUID();
-       //navigate to login page?
-       this.props.navigation.navigate('Login');
+       this.props.navigation.navigate('NewProfile');
   };
 
   async knownUser(){
@@ -64,12 +63,13 @@ class AcceptPage extends Component<Props> {
       const knowU = await API.graphql(graphqlOperation(queries.getSusuer, {id: this.uuid}));
       console.log(knowU);
 
-      //Use this conditional to send them to create susu profile or to dashboard
+      //Use this conditional to send them to create susu profile or
+      // to create a SuSu or to the dashboard
       //if they already have one
       if (knowU.data.getSusuer.id){
         console.log('User Found');
         console.log(knowU.data.getSusuer.id);
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('NewProfile');
       } else {
         console.log("Unkown Device (new user?)");
         console.log(knowU.data.susuer.id);
@@ -147,8 +147,9 @@ class AcceptPage extends Component<Props> {
 const MainNavigator = createStackNavigator(
   {
     Accept: AcceptPage,
-    Login: Home
-    
+    NewProfile: NewGuy,
+    Build: BuildSuSu
+
   },
 
   {headerMode: 'none', mode: 'modal'},

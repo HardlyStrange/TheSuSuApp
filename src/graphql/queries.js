@@ -4,37 +4,29 @@
 export const getSusuer = `query GetSusuer($id: ID!) {
   getSusuer(id: $id) {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;
 export const listSusuers = `query ListSusuers(
-  $filter: ModelsusuerFilterInput
+  $filter: ModelSusuerFilterInput
   $limit: Int
   $nextToken: String
 ) {
   listSusuers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      agree
       joined
+      username
       first
       last
       legalid
-      confirmed
-      nickname
-      signedin
-      profileid
-      profilepic
+      approved
     }
     nextToken
   }

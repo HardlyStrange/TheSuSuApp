@@ -4,48 +4,36 @@
 export const onCreateSusuer = `subscription OnCreateSusuer {
   onCreateSusuer {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;
 export const onUpdateSusuer = `subscription OnUpdateSusuer {
   onUpdateSusuer {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;
 export const onDeleteSusuer = `subscription OnDeleteSusuer {
   onDeleteSusuer {
     id
-    agree
     joined
+    username
     first
     last
     legalid
-    confirmed
-    nickname
-    signedin
-    profileid
-    profilepic
+    approved
   }
 }
 `;

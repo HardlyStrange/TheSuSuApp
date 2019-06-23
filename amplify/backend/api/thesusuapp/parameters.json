@@ -1,1 +1,10 @@
-{}
+{
+    "AppSyncApiName": "thesusuapp",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "auththesusuappAuth",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

@@ -1,18 +1,18 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "thesusuapp-dev-20190603234418-authRole",
-            "UnauthRoleArn": "arn:aws:iam::653476935383:role/thesusuapp-dev-20190603234418-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::653476935383:role/thesusuapp-dev-20190603234418-authRole",
+            "AuthRoleName": "thesusuapp-dev-20190621180153-authRole",
+            "UnauthRoleArn": "arn:aws:iam::653476935383:role/thesusuapp-dev-20190621180153-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::653476935383:role/thesusuapp-dev-20190621180153-authRole",
             "Region": "us-east-2",
-            "DeploymentBucketName": "thesusuapp-dev-20190603234418-deployment",
-            "UnauthRoleName": "thesusuapp-dev-20190603234418-unauthRole",
-            "StackName": "thesusuapp-dev-20190603234418",
-            "StackId": "arn:aws:cloudformation:us-east-2:653476935383:stack/thesusuapp-dev-20190603234418/085bbcc0-867b-11e9-94cf-022c6f51bf82"
+            "DeploymentBucketName": "thesusuapp-dev-20190621180153-deployment",
+            "UnauthRoleName": "thesusuapp-dev-20190621180153-unauthRole",
+            "StackName": "thesusuapp-dev-20190621180153",
+            "StackId": "arn:aws:cloudformation:us-east-2:653476935383:stack/thesusuapp-dev-20190621180153/2df4b290-9470-11e9-9848-024d9c0f9898"
         },
         "categories": {
             "auth": {
-                "cognitoa626a7d9": {}
+                "thesusuappAuth": {}
             }
         }
     }
