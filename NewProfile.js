@@ -64,6 +64,7 @@ class NewGuy extends Component {
     // add the users details to db
     const userDetails = {
       id: this.uuid,
+      approved: false,
       first: this.state.frst,
       last: this.state.lst,
       username: this.state.disp,

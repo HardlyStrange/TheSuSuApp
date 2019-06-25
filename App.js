@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, Linking, Button, TextInput, ScrollView, View} from 'react-native';
 import { Font, Constants } from 'expo';
 import Amplify, { Auth, Analytics, Storage, API, graphqlOperation } from 'aws-amplify';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {createStackNavigator, StackNavigator, createAppContainer} from 'react-navigation';
 import awsmobile from './aws-exports.js';
 import {atxt} from './assets/agreementText.js';
 import * as queries from './src/graphql/queries.js';
@@ -11,6 +11,8 @@ import * as subscriptions from './src/graphql/subscriptions.js';
 var ss = require('./styles.js');
 import NewGuy from './NewProfile.js';
 import BuildSuSu from './NewSuSu.js';
+import StepOne from './StepA.js';
+
 //
 Amplify.configure(awsmobile);
 
@@ -69,7 +71,12 @@ class AcceptPage extends Component<Props> {
       if (knowU.data.getSusuer.id){
         console.log('User Found');
         console.log(knowU.data.getSusuer.id);
-        this.props.navigation.navigate('NewProfile');
+        if (knowU.data.getSusuer.legalid){ //checks the object for uploaded id
+          console.log('User has completed a profile');
+          this.props.navigation.navigate('Build');
+        } else {
+          this.props.navigation.navigate('NewProfile');
+        }
       } else {
         console.log("Unkown Device (new user?)");
         console.log(knowU.data.susuer.id);
@@ -113,7 +120,8 @@ class AcceptPage extends Component<Props> {
           </Text>
           ) : null
       }
-        <ScrollView contentContainerStyle={ss.contentContainer}>
+        <ScrollView showsVerticalScrollIndicator={true}
+              contentContainerStyle={ss.contentContainer}>
         <TextInput
               style={ss.regular}
               value={this.state.agreetxt}
@@ -146,9 +154,10 @@ class AcceptPage extends Component<Props> {
 // Main ///////->
 const MainNavigator = createStackNavigator(
   {
-    Accept: AcceptPage,
-    NewProfile: NewGuy,
-    Build: BuildSuSu
+        Accept: {screen: AcceptPage},
+        NewProfile: {screen: NewGuy},
+        Build: {screen: BuildSuSu},
+        StepA: {screen: StepOne}
 
   },
 
