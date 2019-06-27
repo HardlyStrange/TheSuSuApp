@@ -21,12 +21,21 @@ class StepOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      susuTitle: '',
+
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleBack = this.handleBack.bind(this);
+    this.handleNext = this.handleNext.bind(this);
   };
-  handleClick(){
+
+  handleBack(){
     this.props.navigation.dispatch(backAction);
-  }
+  };
+
+  // thi
+  handleNext(){
+    this.props.navigation.dispatch(backAction);
+  };
 
   componentWillMount (){
 
@@ -39,17 +48,27 @@ class StepOne extends Component {
   render(){
 
     return(
-      <View style={ss.container}>
-      <TouchableOpacity style={ss.createSuBox} onPress={this.handleClick}>
-        <Text style={ss.createSu}>Go Back</Text>
-      </TouchableOpacity>
-        <Text style={ss.invnone}>{this.state.username}, This will be complicated</Text>
-        <TouchableOpacity style={ss.createSuBox} onPress={this.handleClick}>
-          <Text style={ss.createSu}>More options</Text>
+      <View style={ss.naVcontainer}>
+        <View style={ss.suBc}>
+          <Text style={ss.suTitle}>
+            What do you want to call this SuSu?{"\n"}
+          </Text>
+          <TextInput
+            style={ss.suTextinput}
+            onChangeText={(susuTitle) => this.setState({susuTitle})}
+            value={this.state.susuTitle}
+          />
+        </View>
+        <TouchableOpacity style={ss.goBack} onPress={this.handleBack}>
+          <Text style={ss.createSu}>Go Back</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={ss.goNext} onPress={this.handleNext}>
+          <Text style={ss.createSu}>Next</Text>
+        </TouchableOpacity>
+
       </View>
     );
   }
 };
 
-export default withAuthenticator(StepOne);
+export default StepOne;

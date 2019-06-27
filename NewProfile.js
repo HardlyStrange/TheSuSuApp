@@ -75,7 +75,7 @@ class NewGuy extends Component {
       console.log('We upated this users details, here is the response:');
       console.log(newUser);
       //nav to next page
-      //this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Build');
     } catch (err) {
       console.log("We Tried to upate the susuer object and got this error:");
       console.log(err);
