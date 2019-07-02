@@ -28,40 +28,67 @@ class StepOne extends Component {
     this.handleNext = this.handleNext.bind(this);
     this.switchStyles = this.switchStyles.bind(this);
     this.addinvitee = this.addinvitee.bind(this);
+    this.clearInvitation = this.clearInvitation.bind(this);
   };
 
+  clearInvitation = i => {
+
+    const list = this.state.invitees.filter( (item, index) => i !== index );
+    console.log(list);
+    this.setState({invitees: list});
+    this.setState({susuEmail: ''});
+  };
+    //set
+    //this.setState({susuEmail: ''});
   handleBack(){
     this.props.navigation.dispatch(backAction);
   };
 
-  // thi
   handleNext(){
+    // Collect all the shits
     this.props.navigation.dispatch(backAction);
   };
 
   switchStyles(){
-    this.setState(prevState => ({
-      check: !prevState.check
-    }));
+    if (this.state.susuTitle){
+      this.setState(prevState => ({
+        check: !prevState.check
+      }));
+    }
   };
+
   addinvitee(){
     //add email address to invitees list
+    console.log("adding an invitee");
+    let bla = this.state.susuEmail;
 
-    //For each item in the invitees list, make a little Button that sends its value to this.state.susuEmail and removes it from the list -->
+    this.setState(prevState => ({
+      invitees: [...prevState.invitees, bla]
+    }));
+    this.setState({susuEmail: ''});
+
   };
+
   componentWillMount (){
 
   };
+
   componentDidMount (){
     console.log("Starting Step One...");
 
   };
 
+  componentDidUpdate() {
+
+  };
+
+
   render(){
-    // This first conditional is for switching the title to
-    //a different style when done
+
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     let title_display;
-    if (this.state.check){
+    if (this.state.check) {
       title_display = <View>
                 <Text style={ss.suTitle}>
                   What do you want to call this Su Su?
@@ -74,6 +101,7 @@ class StepOne extends Component {
                 />
                 </View>;
     } else {
+
       title_display = <View style={{marginTop: '20%',}}>
                   <TouchableOpacity onPress={this.switchStyles}>
                   <Text style={ss.sulilSubTitle}>Your $u$u!</Text>
@@ -91,31 +119,64 @@ class StepOne extends Component {
       <View style={ss.naVcontainer}>
 
         {title_display}
-
-        <Text style={ss.suETitle}>
-            You cannot Susu alone.{'\n'}
-            Invite Someone:
+        {
+          this.state.invitees.length < 7 ? (
+            <View>
+            {
+              this.state.invitees.length < 1 ? (
+                <View>
+                  <Text style={ss.suETitle}>
+                    You cannot Susu alone.{'\n'}
+                    {'       '}Invite Someone:
+                  </Text>
+                </View>
+              ) : (
+                  <Text style={ss.suETitle}>
+                    {' '}Invite Someone else:
+                  </Text>
+              )
+            }
+            <TextInput
+              style={ss.suETextinput}
+              placeholder="example@example.com"
+              placeholderTextColor="grey"
+              onChangeText={(susuEmail) => this.setState({susuEmail})}
+              value={this.state.susuEmail}
+            />
+            </View>
+        ) : (
+          <Text style={ss.suETitle}>
+              Your Su Su is limited to a maximum of{'\n'}
+              8 members at this time
           </Text>
-          <TextInput
-            style={ss.suETextinput}
-            placeholder="example@example.com"
-            placeholderTextColor="grey"
-            onChangeText={(susuEmail) => this.setState({susuEmail})}
-            value={this.state.susuEmail}
-            onBlur={this.addinvitee}
-          />
+        )
+        }
+
           {
             this.state.susuEmail ? (
-              this.state.susuEmail.includes('@') ? (
-                this.state.susuEmail.includes('.') ? (
-                  <TouchableOpacity style={ss.inviteButton} onPress={this.sendInvite}>
-                    <Text style={ss.createSu}>Send</Text>
-                  </TouchableOpacity>
-                ) : null
+              this.state.susuEmail.match(regex) ? (
+              //this.state.susuEmail.includes('@') ? (
+              //  this.state.susuEmail.includes('.') ? (
+                  this.state.invitees.length < 7 ? (
+                    <TouchableOpacity style={ss.inviteButton} onPress={this.addinvitee}>
+                      <Text style={ss.createSu}>Send</Text>
+                    </TouchableOpacity>
+                  ) : null
+              //  ) : null
               ) : null
             ): null
           }
-
+          {
+            this.state.invitees.length ? (
+                this.state.invitees.map((item, index) => (
+                  //console.log(index+" "+item),
+                  <TouchableOpacity style={ss.invitee} onPress={() => this.clearInvitation(index)}>
+                    <Text style={ss.inviteeText}>{item}</Text>
+                    <Text style={{color: 'grey', fontSize: 12}}>(x)</Text>
+                  </TouchableOpacity>
+                ))
+            ) : null
+          }
 
 
 
@@ -123,10 +184,16 @@ class StepOne extends Component {
         <TouchableOpacity style={ss.goBack} onPress={this.handleBack}>
           <Text style={ss.createSu}>Go Back</Text>
         </TouchableOpacity>
+        {
+          this.state.susuTitle && this.state.invitees ? (
 
-        <TouchableOpacity style={ss.goNext} onPress={this.handleNext}>
-          <Text style={ss.createSu}>Next</Text>
-        </TouchableOpacity>
+              <TouchableOpacity style={ss.goNext} onPress={this.handleNext}>
+                <Text style={ss.createSu}>Next</Text>
+              </TouchableOpacity>
+
+          ) : null
+        }
+
 
       </View>
     );
